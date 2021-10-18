@@ -12,6 +12,8 @@ import { RecommendationsModule } from './modules/recommendations/recommendations
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      introspection: true,
+      playground: true,
     }),
     TypeOrmModule.forRoot(),
     CitiesModule,
