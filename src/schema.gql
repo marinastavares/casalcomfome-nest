@@ -1,0 +1,62 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  id: Int!
+  name: String!
+  slug: String!
+  recommendations: Recommendation!
+}
+
+type Recommendation {
+  id: Int!
+  name: String!
+  instagram: String!
+  visible: String!
+  recommendedBy: String!
+  city: City!
+  category: Category!
+}
+
+type City {
+  id: Int!
+  name: String!
+  slug: String!
+  recommendations: Recommendation!
+}
+
+type Query {
+  cities(slug: String!): City!
+  categories(slug: String!): Category!
+  recommendations: [Recommendation!]!
+}
+
+type Mutation {
+  createCity(createCityInput: CreateCityInput!): City!
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  removeCategory(id: Int!): Category!
+  createRecommendation(createRecommendationInput: CreateRecommendationInput!): Recommendation!
+  removeRecommendation(id: Int!): Recommendation!
+}
+
+input CreateCityInput {
+  name: String!
+}
+
+input CreateCategoryInput {
+  name: String!
+}
+
+input CreateRecommendationInput {
+  name: String!
+  instagram: String!
+  visible: String!
+  recommendedBy: String!
+  city: SlugInput
+  category: SlugInput
+}
+
+input SlugInput {
+  slug: String!
+}
