@@ -2,6 +2,7 @@ import { Recommendation } from 'src/modules/recommendations/entities/recommendat
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Restaurant } from 'src/modules/restaurants/entities/restaurant.entity';
 
 @Entity()
 @ObjectType('Category')
@@ -24,4 +25,8 @@ export class Category {
   )
   @Field((type) => Recommendation)
   recommendations: Recommendation[];
+
+  @OneToMany(() => Restaurant, (restaurant) => restaurant.category)
+  @Field((type) => Restaurant)
+  restaurants: Restaurant[];
 }

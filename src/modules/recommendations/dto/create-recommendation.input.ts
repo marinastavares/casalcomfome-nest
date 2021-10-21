@@ -1,9 +1,12 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-// import { Category } from 'src/modules/categories/entities/category.entity';
-import { City } from 'src/modules/cities/entities/city.entity';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 class SlugInput {
+  @Field()
+  slug: string;
+}
+@InputType()
+class SlugInputCity {
   @Field()
   slug: string;
 }
@@ -17,13 +20,13 @@ export class CreateRecommendationInput {
   instagram: string;
 
   @Field()
-  visible: string;
+  visible?: string;
 
   @Field()
   recommendedBy: string;
 
-  @Field((type) => SlugInput, { nullable: true })
-  city: SlugInput;
+  @Field((type) => SlugInputCity, { nullable: true })
+  city: SlugInputCity;
 
   @Field((type) => SlugInput, { nullable: true })
   category: SlugInput;

@@ -2,11 +2,40 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Post {
+  id: Int!
+  name: String!
+  url: String!
+  thumbnail: String!
+  tags: [String!]!
+  visitedAt: DateTime!
+  restaurant: Restaurant!
+  viviScore: Int!
+  mstScore: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Restaurant {
+  id: Int!
+  name: String!
+  slug: String!
+  instagram: String!
+  recommendedBy: String!
+  city: City!
+  category: Category!
+  posts: [Post!]!
+}
+
 type Category {
   id: Int!
   name: String!
   slug: String!
   recommendations: Recommendation!
+  restaurants: Restaurant!
 }
 
 type Recommendation {
@@ -24,12 +53,17 @@ type City {
   name: String!
   slug: String!
   recommendations: Recommendation!
+  restaurants: Restaurant!
 }
 
 type Query {
   cities(slug: String!): City!
-  categories(slug: String!): Category!
+  categories: [Category!]!
+  category(slug: String!): Category!
   recommendations: [Recommendation!]!
+  restaurants(name: String!): [Restaurant!]!
+  restaurant(id: Int!): Restaurant!
+  posts: [Post!]!
 }
 
 type Mutation {
@@ -38,6 +72,11 @@ type Mutation {
   removeCategory(id: Int!): Category!
   createRecommendation(createRecommendationInput: CreateRecommendationInput!): Recommendation!
   removeRecommendation(id: Int!): Recommendation!
+  createRestaurant(createRestaurantInput: CreateRestaurantInput!): Restaurant!
+  removeRestaurant(id: Int!): Restaurant!
+  createPostAndRestaurant(CreatePostRestaurantInput: CreatePostRestaurantInput!): Post!
+  createPost(createPostInput: CreatePostInput!): Post!
+  removePost(id: Int!): Post!
 }
 
 input CreateCityInput {
@@ -53,10 +92,52 @@ input CreateRecommendationInput {
   instagram: String!
   visible: String!
   recommendedBy: String!
-  city: SlugInput
+  city: SlugInputCity
   category: SlugInput
+}
+
+input SlugInputCity {
+  slug: String!
 }
 
 input SlugInput {
   slug: String!
+}
+
+input CreateRestaurantInput {
+  name: String!
+  instagram: String!
+  recommendedBy: String!
+  city: SlugInputRestaurant
+  category: SlugInputRestaurant
+}
+
+input SlugInputRestaurant {
+  slug: String!
+}
+
+input CreatePostRestaurantInput {
+  name: String!
+  url: String!
+  thumbnail: String!
+  tags: [String!]!
+  visitedAt: DateTime!
+  restaurant: CreateRestaurantInput
+  viviScore: Int!
+  mstScore: Int!
+}
+
+input CreatePostInput {
+  name: String!
+  url: String!
+  thumbnail: String!
+  tags: [String!]!
+  visitedAt: DateTime!
+  restaurant: RestaurantInput
+  viviScore: Int!
+  mstScore: Int!
+}
+
+input RestaurantInput {
+  id: Int!
 }

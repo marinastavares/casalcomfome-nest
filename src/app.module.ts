@@ -7,6 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CitiesModule } from './modules/cities/cities.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { RecommendationsModule } from './modules/recommendations/recommendations.module';
+import { RestaurantsModule } from './modules/restaurants/restaurants.module';
+import { PostsModule } from './modules/posts/posts.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { RecommendationsModule } from './modules/recommendations/recommendations
     CitiesModule,
     CategoriesModule,
     RecommendationsModule,
+    RestaurantsModule,
+    PostsModule,
   ],
   providers: [AppService],
 })

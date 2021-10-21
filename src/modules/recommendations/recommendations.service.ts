@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateRecommendationInput } from './dto/create-recommendation.input';
 import { UpdateRecommendationInput } from './dto/update-recommendation.input';
 import { Recommendation } from './entities/recommendation.entity';
 
@@ -12,7 +11,7 @@ export class RecommendationsService {
     private recommendationsRepository: Repository<Recommendation>,
   ) {}
   async create(
-    createRecommendationInput: CreateRecommendationInput,
+    createRecommendationInput: Omit<Recommendation, 'id'>,
   ): Promise<Recommendation> {
     const newRecommendation = await this.recommendationsRepository.create(
       createRecommendationInput,
@@ -33,7 +32,9 @@ export class RecommendationsService {
   }
 
   async remove(id: number): Promise<Recommendation> {
-    const deleteRecommendation = await this.recommendationsRepository.findOne(id);
+    const deleteRecommendation = await this.recommendationsRepository.findOne(
+      id,
+    );
     return await this.recommendationsRepository.remove(deleteRecommendation);
   }
 }

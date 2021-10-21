@@ -20,9 +20,9 @@ export class Recommendation {
   @Field()
   instagram: string;
 
-  @Column()
+  @Column({ nullable: true })
   @Field()
-  visible: string;
+  visible?: string;
 
   @Column()
   @Field()

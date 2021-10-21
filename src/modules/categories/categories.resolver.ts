@@ -28,7 +28,7 @@ export class CategoriesResolver {
     return this.categoriesService.findAll();
   }
 
-  @Query(() => Category, { name: 'categories' })
+  @Query(() => Category, { name: 'category' })
   findOne(
     @Args('slug', { type: () => String }) slug: string,
   ): Promise<Category> {
